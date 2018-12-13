@@ -120,11 +120,11 @@
       <path value="$PROJECT_DIR$/vendor/composer" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="345" />
-    <option name="y" value="65" />
-    <option name="width" value="1554" />
-    <option name="height" value="840" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="2" />
+    <option name="y" value="67" />
+    <option name="width" value="1940" />
+    <option name="height" value="903" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
