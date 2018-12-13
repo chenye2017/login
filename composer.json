@@ -1,0 +1,19 @@
+{
+    "name": "chenye2017\/login",
+    "description": "fast third person login",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "chenye2017",
+            "email": "1967196626@qq.com"
+        }
+    ],
+    "require": {
+        "guzzle/guzzle": "^3.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Chenye2017\\Login\\": "./src"
+        }
+    }
+}
