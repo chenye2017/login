@@ -61,6 +61,9 @@ $userinfo = $login->getUser($code); // code 是回调地址中的接收到的cod
 - 添加github登陆
 - 添加单元测试
 - 拒绝登陆时候的处理
+- 异常处理
+- http请求处理
+- 单元测试
 
 ## Contributing
 
