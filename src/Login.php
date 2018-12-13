@@ -8,7 +8,7 @@
 
 namespace Chenye2017\Login;
 
-use Guzzle\Http\Client;
+/*use Guzzle\Http\Client;*/
 
 
 class Login
@@ -30,7 +30,23 @@ class Login
         $this->state       = $state;
     }
 
-    public function getHttpClient()
+    public function myCurl($url, $data)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        if (count($data) > 0 ) {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+
+    /*public function getHttpClient()
     {
         return new Client($this->guzzleOptions);
     }
@@ -38,7 +54,7 @@ class Login
     public function setGuzzleOptions(array $options)
     {
         $this->guzzleOptions = $options;
-    }
+    }*/
 
     /**
      * 返回第三方登陆的qq登陆地址
@@ -71,7 +87,7 @@ class Login
         $query = http_build_query($data);
         $url   = $this->getTokenUrl . '?' . $query;
 
-        $resAccessToken = $this->getHttpClient()->get($url)->getBody()->getContents();
+        $resAccessToken = $this->myCurl($url);
         $resAccessToken = json_decode($resAccessToken, true);
         $accessTokenArr = [];
         parse_str($resAccessToken, $accessTokenArr); // 拆分结果存入变量arr中
@@ -79,7 +95,7 @@ class Login
 
         // 获取openid
         $url = $this->getOpenIdUrl . $accessToken;
-        $resOpenId = $this->getHttpClient()->get($url)->getBody()->getContents();
+        $resOpenId = $this->myCurl($url);
         // callback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} ); 返回结构
         $num = strrpos($resOpenId, ':');
         $resOpenId = substr($resOpenId, $num);
@@ -96,7 +112,7 @@ class Login
             'openid'             => $openid
         ];
         $url  = $url . '?' . http_build_query($data);//var_dump($url);
-        $resUserInfo  = $this->getHttpClient()->get($url)->getBody()->getContents();
+        $resUserInfo  = $this->myCurl($url,$data);
         $resUserInfo = json_decode($resUserInfo, true);
         return $resUserInfo;
     }
