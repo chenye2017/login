@@ -6,7 +6,7 @@
 ## Installing
 
 ```shell
-$ composer require chenye2017/login -vvv
+$ composer require chenye2017/login 
 ```
 
 ## Usage

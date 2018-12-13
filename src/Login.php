@@ -21,16 +21,17 @@ class Login
     protected $getOpenIdUrl = 'https://graph.qq.com/oauth2.0/me?access_token=';
     protected $getUserinfoUrl = 'https://graph.qq.com/user/get_user_info';
     protected $clientSecret;
-    protected $guzzleOptions = [];
+    //protected $guzzleOptions = [];
 
-    public function __construct($clientId, $redirectUri, $state = '')
+    public function __construct($clientId, $clientSecret, $redirectUri, $state = '')
     {
         $this->clientId    = $clientId;
+        $this->clientSecret = $clientSecret;
         $this->redirectUri = $redirectUri;
         $this->state       = $state;
     }
 
-    public function myCurl($url, $data)
+    public function myCurl($url, $data = [])
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -86,9 +87,8 @@ class Login
         ];
         $query = http_build_query($data);
         $url   = $this->getTokenUrl . '?' . $query;
-
-        $resAccessToken = $this->myCurl($url);
-        $resAccessToken = json_decode($resAccessToken, true);
+        // code 只能用一次
+        $resAccessToken = $this->myCurl($url); //  "access_token=405913F18D759CD61F7D6C49EAFDFCC8&expires_in=7776000&refresh_token=2E5675BFDC7126BC05DCDF42E9A1C5B0"
         $accessTokenArr = [];
         parse_str($resAccessToken, $accessTokenArr); // 拆分结果存入变量arr中
         $accessToken = $accessTokenArr['access_token'];
@@ -114,6 +114,7 @@ class Login
         $url  = $url . '?' . http_build_query($data);//var_dump($url);
         $resUserInfo  = $this->myCurl($url,$data);
         $resUserInfo = json_decode($resUserInfo, true);
+        $resUserInfo['openid'] = $openid;
         return $resUserInfo;
     }
 }
