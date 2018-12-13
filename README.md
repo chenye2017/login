@@ -14,9 +14,9 @@ $ composer require chenye2017/login -vvv
 TODO
 
 ## TODO
-添加微博登录
-添加github登陆
-添加单元测试
+- 添加微博登录
+- 添加github登陆
+- 添加单元测试
 
 ## Contributing
 
